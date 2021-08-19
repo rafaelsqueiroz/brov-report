@@ -1,16 +1,81 @@
-\section{Análise de Requisitos}
-\label{sec:analise-de-requisitos}
+\section{Metodologia}
+\label{sec:metodologia}
 
-Dentre os dez requisitos do projeto, alguns exigem soluções envolvendo diversos sensores e técnicas específicas para seu cumprimento. Esta seção visa esclarecer a estratégia a ser adotada para algumas das funcionalidades necessárias do veículo.
+Para o cumprimento dos objetivos gerais e específicos do trabalho foram considerados catorze requisitos -- dez funcionais e quatro desejáveis -- pré-estabelecidos por um cliente fictício. Os requisitos estão listados abaixo:
+\vspace{1 mm}
+
+\textbf{Funcionais}
+\begin{enumerate}
+	\item Ser capaz de estabelecer comunicação com operador na superfície.
+	\item Ser capaz de submergir e emergir de forma controlada.
+	\item Ser capaz de se locomover em baixo d'água com uma velocidade de 2 m/s.
+	\item Ser capaz de seguir trajetória pré-estabelecida.
+	\item Ser capaz de mapear o leito submarino abaixo (angulação mínima de $ \pm $ 10°).
+	\item Ser capaz de localizar no mapa um objeto pré-definido.
+	\item Ser capaz de se deslocar até uma coordenada (3D) ou objeto pré-definido.
+	\item Ser capaz de detectar ``sinal de socorro'' e se deslocar até a fonte emissora.
+	\item Ser capaz de transmitir dados, inclusive a localização (3D) em tempo real.
+	\item Ser capaz de armazenar o caminho percorrido para o cumprimento da missão.
+\end{enumerate}
+
+\textbf{Desejáveis}
+
+\begin{enumerate}[resume]
+	\item O protótipo deve suportar pressões correspondentes a pelo menos 10 mca.
+	\item O protótipo deve ser ``bem montado'' e ``apresentável''.
+	\item Deve-se preservar aspectos de segurança na operação, resgate e manutenção.
+	\item Deve-se desenvolver IHM para monitoramento em tempo real.	
+\end{enumerate}
+
+\vspace{1 mm}
+
+A metodologia adotada para levantamento de ideias, ponderação de requisitos e seleção preliminar de componentes está descrita na Figura \ref{fig:metodologia}. As subseções a seguir detalham o que foi desenvolvido em cada etapa da metodologia.
+
+\begin{figure}[h]
+	\centering
+	\caption{Metodologia adotada para o projeto}
+	\label{fig:metodologia}
+	\includegraphics[width=0.7\linewidth]{images/metodologia}\\
+	\footnotesize Fonte: Autores
+\end{figure}
+
+\subsection{\textit{Brainstorming}}
+\label{subsec:brainstorming}
+
+Na fase de \textit{brainstorming} foram levantadas algumas soluções que poderiam atender ao maior número possível de requisitos. Ao término dessa etapa, a equipe chegou a um conceito inicial, que está mostrado na Figura \ref{fig:conceito-inicial}.
+
+\begin{figure}[h]
+	\centering
+	\caption{Conceito inicial da solução}
+	\label{fig:conceito-inicial}
+	\includegraphics[width=1\linewidth]{images/conceito-inicial}\\
+	\footnotesize Fonte: Autores
+\end{figure}
+
+Nesse conceito, o operador seria responsável por enviar comandos de deslocamento para um transceptor ultrassônico -- que estaria dentro de uma bóia na superfície -- através de um controle. O comando seria então convertido em um sinal modularizado para ser enviado ao transceptor ultrassônico presente no ROV. Em seguida, esse sinal seria decodificado e o ROV se deslocaria para a posição desejada. 
+
+A localização do ROV seria periodicamente monitorada por três transdutores ultrassônicos presentes na superfície da água, que atuariam como \textit{ground-truth}, recebendo a informação de um hidrofone presente no ROV e calculando a localização por meio de trilateração. Essa informação seria então enviada para a inteface homem-máquina (IHM) via cabo ou RF.
+
+A medida em que o ROV se aproximasse do objeto de interesse -- que estaria emitindo sinal acústico --, haveria uma amplificação do sinal do sonar embarcado, que seria transmitido para o transceptor ultrassônico presente no ROV e enviado de volta para o operador. O objeto teria também um ímã para facilitar a captura e resgate.
+
+O mapeamento do leito seria feito de modo \textit{offline} por outro sensores ultrassônicos embarcados no ROV. O registro da trajetória também não seria feito em tempo real, mas de modo \textit{offline} por meio do rastro calculado pela IMU (do inglês \textit{Inertial Measurement Unit}).
 
 
 \subsection{Matriz QFD}
 \label{subsec:matriz-qfd}
 
-\begin{table}[h]
+Após obtenção de um conceito inicial, a equipe utilizou a Matriz QFD (do inglês \textit{Quality Function Deployment}) para conversão das necessidades do cliente fictício em requisitos factíveis de projeto. Nessa etapa foram avaliadas as relações entre as necessidades e os requisitos, assim como as correlações dos requisitos entre si. Não foi feita uma análise de concorrentes. Ao término do preenchimento da QFD, cujo recorte está mostrado na Tabela \ref{tab:qfd-brov-recorte}, foi possível determinar a ordem de priorização dos requisitos. Os principais requisitos listados foram:
+
+\begin{enumerate}
+	\item Comunicação \textit{wireless}.
+	\item Localizar ROV.
+	\item Seguir trajetória pré-estabelecida.
+\end{enumerate}
+
+\begin{table}[h!]
 	\centering
 	\caption{Matriz QFD}
-	\label{tab:qfd-brov}
+	\label{tab:qfd-brov-recorte}
 	\includegraphics[width=1\linewidth]{images/QFD-BROV.png}\\
 	\footnotesize Fonte: Autores
 \end{table}
@@ -18,7 +83,10 @@ Dentre os dez requisitos do projeto, alguns exigem soluções envolvendo diverso
 \subsection{Matriz Morfológica}
 \label{subsec:matriz-morfologica}
 
-\begin{table}[h]
+A matriz morfológica, mostrada na Tabela \ref{tab:matriz-morfologica}, foi utilizada para seleção preliminar dos componentes e sistemas que viriam compor o ROV, de modo a solucionar cada requisito de projeto. Ao término do preenchimento da matriz morfológica, o conceito inicial sofreu alterações, como substituição e inclusão de novos sensores. 
+%Os argumentos para seleção de alguns dos componentes estão expostos a seguir.
+
+\begin{table}[h!]
 	\centering
 	\caption{Matriz morfológica}
 	\label{tab:matriz-morfologica}
@@ -26,18 +94,21 @@ Dentre os dez requisitos do projeto, alguns exigem soluções envolvendo diverso
 	\footnotesize Fonte: Autores
 \end{table}
 
-\subsubsection*{Localização}
-\label{subsec:localizacao}
+INSERIR ARGUMENTOS DA ESCOLHA DE CADA SENSOR DA MATRIZ MORFOLÓGICA.
 
-Um dos requisitos do projeto é a capacidade do veículo de se localizar no ambiente. Esse requisito tem impacto em diversos outros, pois não havendo sua localização, não se pode criar um mapa ou gerar uma trajetória a ser seguida. A localização do veículo consiste em saber a pose, os seis DOF (\textit{Degrees of Freedom}), do veículo em relação ao ambiente no qual está inserido. Dessa forma, deve-se ter inseridos no ambiente objetos conhecidos em poses conhecidas, os quais o veículo possa utilizar as detecções desses objetos para aferir sua pose no ambiente. Serão utilizados um sistema SBL (\textit{Short BaseLine}) e arucos como esses objetos conhecidos.
+\subsection{Projeto Conceitual}
+\label{subsec:projeto-conceitual}
 
-O sistema SBL é um conjunto de quatro \textit{beacons} acústicos que devem ficar emitindo um sinal acústico para o veículo, que atrávez da trilateração, é capaz de estimar a posição em XY desse sistema. Esse sistema em conjunto com o sensor de pressão e a inferência da posição em Z provê a todo momento a posição em XYZ do veículo. Dessa forma, somente falta a rotação em XYZ, que pode ser aferida a partir do giroscópio presente na IMU.
 
-Mesmo já sendo possível obter a pose 6DOF do veículo com essas três soluções, a detecção de Arucos, \textit{dead-reckoning} e dados do acelerômetros também serão usados visando obtenção de uma localização mais precisa. A detecção por visão computacional de um aruco fixado ao ambiente possibilita a estimação da pose 6DOF do veículo, porém esse dado só está disponível enquanto o veículo aponta sua câmera para o aruco. O \textit{dead-reckoning} consiste em utilizar o modelo cinemático de deslocamento do veículo com a velocidade de cada propulsor para saber o deslocamento 6DOF que deve acontecer em um certo período, contudo, essa técnica pode agregar erros de modelagem, assim como de estimação do empuxo em cada propulsor. Por fim, o dado do acelerômetro integrado duas vezes provê dado de deslocamento de posição, mas como o erro do sensor também é integrado duas vezes, a técnica não é tão precisa. Dessa maneira, pelos problemas apresentados nesse parágrafo sobre a estimação de pose com acelerômetro, arucos e \textit{dead-reckoning}, essas serão usadas somente a partir da fusão por filtro de Kalman com as informações obtidas pelo SBL, sensor de pressão e giroscópio. O filtro de Kalman leva em consideração a precisão de cada dado durante sua fusão, então dados mais precisos tem mais peso do que dados imprecisos. 
+INSERIR EXPLICAÇÕES DO PROJETO CONCEITUAL, SIMILAR AO PRESENTE NA SUBSEÇÃO DE BRAINSTORMING.
 
-Uma possibilidade são os próprios marcos artificiais, porém precisam estar em uma pose conhecida previamente, então com a estimativa de sua pose em relação ao veículo submarino, se calcula a pose do veículo no mundo. Outra possibilidade é a triangulação de sinal, com três emissores de pulsos acústicos ou ópticos com posições previamente conhecidas, consegue-se estimar a pose do veículo. Por fim, o \textit{dead-reckoning} também pode ser usado através de sensores inerciais e de estimadores de modelo cinemático e dinâmico do veículo. Esses componentes geram uma informação de deslocamento em relação a uma pose inicial, que é chamada de \textit{dead-reckoning}, ou odometria no caso de veículos terrestres.
+\begin{figure}[h]
+	\centering
+	\caption{Conceito da solução após matriz morfológica}
+	\label{fig:conceito-final}
+	\includegraphics[width=1\linewidth]{images/conceito-final}\\
+	\footnotesize Fonte: Autores
+\end{figure}
 
-\subsubsection*{Mapeamento}
-\label{subsubsec:mapeamento}
 
-O mapa será gerado a partir das medições de distância realizadas com os transdutores do fundo do veículo. Cada medição virará um voxel em um mapa de ocupação 3D.
+
