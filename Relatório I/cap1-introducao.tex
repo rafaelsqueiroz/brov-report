@@ -1,0 +1,38 @@
+\section{Introdução}
+\label{sec:introducao}
+
+
+A comunicação subaquática sem fio tem sido um tema de vasta pesquisa nos últimos anos por conta do interesse de exploração do ambiente marinho. Enquanto no ar a maioria dos sistemas de comunicação utiliza ondas de rádio ou espectro de espalhamento e posicionamento global \cite{Paull2014}, na água os sensores acústicos são os mais utilizados. Contudo, outras tecnologias de comunicação sem fio também são aplicáveis nesse ambiente, como ondas de radiofrequência (RF) e ondas óticas \cite{Ur-Rehman2018}.
+
+Os sensores acústicos possuem a vantagem de permitir uma comunicação de longo alcance, da ordem de 20 km. Em contrapartida, possuem baixa taxa de transmissão (da ordem de kbps), alta latência (da ordem de segundos), são relativamente pesados e caros, além de serem perigosos para certas espécies marinhas \cite{Ur-Rehman2018}.
+
+A comunicação subaquática por ondas RF permite uma transição suave entre a interface água/ar, sendo útil para integração com sistemas RF terrestres. Além disso, é menos susceptível às interferências decorrentes de turbulência e turbidez marinha, se comparada com a comunicação acústica e ótica. A principal limitação da aplicação de RF na água é o baixo alcance e o alto custo decorrente da necessidade da instalação de antenas \cite{Ur-Rehman2018}.
+
+A comunicação ótica sem fio subaquática (UOWC, do inglês \textit{Underwater Optical Wireless Communication}) possui, dentre os métodos supracitados, a maior taxa de transmissão, a menor latência e o menor custo de implementação. Por outro lado, o sinal ótico é alterado por conta de absorção e dispersão, demanda alinhamento preciso dos transceptores e possui alcance moderado (da ordem de dezenas de metros) \cite{Ur-Rehman2018}.
+
+Diante desse cenário, o objetivo geral desse trabalho é implementar, em ambiente de simulação, algoritmos de comunicação embarcados em um veículo submarino remotamente operado (ROV, do inglês \textit{Remotely Operated Underwater Vehicle}), que deverá ser projetado para realizar uma operação de resgate de um objeto qualquer.
+
+Os objetivos específicos do trabalho são:
+\begin{enumerate}
+	\item Projetar um ROV para atuação em uma missão de resgate, com requisitos de funcionamento pré-estabelecidos.
+	\item Desenvolver e implementar, em ambiente simulado, algoritmos de comunicação subaquática.
+	\item Simular comportamento dinâmico, localização, mapeamento, navegação e comunicação do ROV.
+\end{enumerate}
+
+O escopo do trabalho está restrito à entrega de três relatórios, desenhos 3D e de fabricação e algoritmos desenvolvidos. A prototipação física, assim como testes experimentais do ROV em piscina ou mar estão fora do escopo desse trabalho.
+
+A divisão dos relatórios será feita da seguinte maneira:
+\vspace{1.5mm}
+
+\begin{enumerate}
+	\item Relatório I - Projeto Conceitual
+	\item Relatório II - Projeto Detalhado
+	\item Relatório III - Resultados de Simulação
+\end{enumerate}
+\vspace{1.5mm}
+ 
+No Relatório I, que é este documento, será apresentada inicialmente uma análise de requisitos do sistema, matriz QFD (do inglês \textit{Quality Function Deployment}) para obtenção dos requisitos de projeto e matriz morfológica para seleção preliminar dos tipos de componentes do protótipo a ser simulado. Posteriormente serão apresentados o projeto conceitual, o design proposto e as estratégias para validação do protótipo em ambiente simulado.
+
+No Relatório II será apresentado o projeto detalhado, com especificação dos componentes e sistema, juntamente com um cronograma para execução das tarefas.
+
+No Relatório III serão mostrados os resultados da simulação do protótipo atuando na missão de resgate.
